@@ -12,10 +12,10 @@ import lombok.Getter;
 @Getter
 public class Account {
 
-    private int accountNum;
+    private String accountNum;
     private int accountPassword;
     private long money;
-    private User user;
+    private long userIndex;
 
     public boolean withdraw(long inputMoney) {
         if(this.money < 0) {
