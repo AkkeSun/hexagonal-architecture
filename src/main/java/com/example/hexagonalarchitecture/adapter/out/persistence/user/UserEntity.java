@@ -37,8 +37,16 @@ public class UserEntity {
 
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
-
-    @OneToMany (mappedBy = "user")
-    @JoinColumn(name="USER_ID")
-    private List<AccountEntity> accountList = new ArrayList<>();
 }
+
+/*
+    create table TBL_USER
+    (
+        `INDEX`      int auto_increment
+            primary key,
+        USER_NAME    varchar(50) null,
+        JUMIN        varchar(50) null,
+        PHONE_NUMBER varchar(50) null
+    );
+
+ */
