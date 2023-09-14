@@ -14,12 +14,6 @@ class UserPersistenceAdapter implements ReadUserPort, CreateUserPort {
     private final UserRepository repository;
 
     @Override
-    public User getUser(long index) {
-        UserEntity entity = repository.findById(index).orElseThrow(NoSuchFieldError::new);
-        return mapper.toEntity(entity);
-    }
-
-    @Override
     public boolean existUser(long index) {
         return repository.existsById(index);
     }
