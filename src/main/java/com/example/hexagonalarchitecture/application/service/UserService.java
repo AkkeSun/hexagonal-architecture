@@ -6,8 +6,10 @@ import com.example.hexagonalarchitecture.application.port.in.user.UserDTO;
 import com.example.hexagonalarchitecture.application.port.out.CreateUserPort;
 import com.example.hexagonalarchitecture.domain.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+@Service
 @RequiredArgsConstructor
 public class UserService implements UserCreateUseCase {
 

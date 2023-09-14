@@ -16,6 +16,7 @@ import com.example.hexagonalarchitecture.application.port.out.UpdateAccountPort;
 import com.example.hexagonalarchitecture.domain.Account;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 /*
@@ -24,6 +25,7 @@ import org.springframework.util.ObjectUtils;
      - input port 상속
      - output port 주입
  */
+@Service
 @RequiredArgsConstructor
 public class AccountService implements DepositUseCase, WithDrawUseCase, AccountSearchUseCase,
     AccountCreateUseCase {
