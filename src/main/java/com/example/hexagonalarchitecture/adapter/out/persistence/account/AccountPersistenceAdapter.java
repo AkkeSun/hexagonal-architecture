@@ -1,31 +1,22 @@
 package com.example.hexagonalarchitecture.adapter.out.persistence.account;
 
-import com.example.hexagonalarchitecture.adapter.out.persistence.user.UserMapper;
-import com.example.hexagonalarchitecture.application.port.out.LoadAccountPort;
-import com.example.hexagonalarchitecture.application.port.out.SaveAccountPort;
+import com.example.hexagonalarchitecture.application.port.out.CreateAccountPort;
+import com.example.hexagonalarchitecture.application.port.out.ReadAccountPort;
+import com.example.hexagonalarchitecture.application.port.out.UpdateAccountPort;
 import com.example.hexagonalarchitecture.domain.Account;
-import com.example.hexagonalarchitecture.util.AesUtils;
+import com.example.hexagonalarchitecture.infrastructure.util.AesUtils;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class AccountPersistenceAdapter implements LoadAccountPort, SaveAccountPort {
+public class AccountPersistenceAdapter implements CreateAccountPort, ReadAccountPort,
+    UpdateAccountPort {
 
     private final AccountMapper accountMapper;
-    private final UserMapper userMapper;
     private final AccountRepository repository;
 
     @Override
-    public Account create(Account account) {
-        String encAccountNum = AesUtils.encrypt(String.valueOf(account.getAccountNum()));
-        String encAccountPassword = AesUtils.encrypt(String.valueOf(account.getAccountPassword()));
-        AccountEntity entity = AccountEntity.builder()
-            .accountNum(encAccountNum)
-            .accountPassword(encAccountPassword)
-            .money(account.getMoney())
-            .user(userMapper.toDomain(account.getUser()))
-            .build();
-        repository.save(entity);
-        return accountMapper.toEntity(entity);
+    public void create(Account account) {
+        repository.save(accountMapper.toDomain(account));
     }
 
     @Override
@@ -38,8 +29,13 @@ public class AccountPersistenceAdapter implements LoadAccountPort, SaveAccountPo
     }
 
     @Override
-    public Account save(Account account) {
-        String encAccountNum = AesUtils.encrypt(String.valueOf(account.getAccountNum()));
+    public boolean existAccountNum(String accountNum) {
+        return repository.existsAccountEntityByAccountNum(accountNum);
+    }
+
+    @Override
+    public Account update(Account account) {
+        String encAccountNum = AesUtils.encrypt(account.getAccountNum());
         String encAccountPassword = AesUtils.encrypt(String.valueOf(account.getAccountPassword()));
         AccountEntity entity = repository.findByAccountNumAndAccountPassword(encAccountNum, encAccountPassword)
             .orElseThrow(RuntimeException::new);
@@ -47,5 +43,4 @@ public class AccountPersistenceAdapter implements LoadAccountPort, SaveAccountPo
         repository.save(entity);
         return accountMapper.toEntity(entity);
     }
-
 }
