@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,22 +28,22 @@ public class AccountController {
     private final WithDrawUseCase withDrawUseCase;
 
     @PostMapping
-    public ResponseEntity<AccountDTO> createAccount (AccountCreateCommand command) {
+    public ResponseEntity<AccountDTO> createAccount (@RequestBody AccountCreateCommand command) {
         return ResponseEntity.ok(createUseCase.createAccount(command));
     }
 
     @PostMapping("/search")
-    public ResponseEntity<AccountDTO> searchAccount (AccountSearchCommand command) {
+    public ResponseEntity<AccountDTO> searchAccount (@RequestBody AccountSearchCommand command) {
         return ResponseEntity.ok(searchUseCase.getAccount(command));
     }
 
     @PutMapping("/deposit")
-    public ResponseEntity<AccountDTO> deposit(DepositCommand command){
+    public ResponseEntity<AccountDTO> deposit(@RequestBody DepositCommand command){
         return ResponseEntity.ok(depositUseCase.deposit(command));
     }
 
     @PutMapping("/withDraw")
-    public ResponseEntity<AccountDTO> withDrawUseCase(WithDrawCommand command){
+    public ResponseEntity<AccountDTO> withDrawUseCase(@RequestBody WithDrawCommand command){
         return ResponseEntity.ok(withDrawUseCase.withDraw(command));
     }
 
