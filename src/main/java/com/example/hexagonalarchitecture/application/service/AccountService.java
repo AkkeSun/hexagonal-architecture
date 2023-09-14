@@ -1,5 +1,8 @@
 package com.example.hexagonalarchitecture.application.service;
 
+import static com.example.hexagonalarchitecture.infrastructure.exception.ApiErrorCode.INSUFFICIENT_BALANCE;
+import static com.example.hexagonalarchitecture.infrastructure.exception.ApiErrorCode.USER_INFO_NOT_FOUND;
+
 import com.example.hexagonalarchitecture.application.port.in.account.AccountCreateCommand;
 import com.example.hexagonalarchitecture.application.port.in.account.AccountCreateUseCase;
 import com.example.hexagonalarchitecture.application.port.in.account.DepositCommand;
@@ -14,16 +17,13 @@ import com.example.hexagonalarchitecture.application.port.out.account.ReadAccoun
 import com.example.hexagonalarchitecture.application.port.out.user.ReadUserPort;
 import com.example.hexagonalarchitecture.application.port.out.account.UpdateAccountPort;
 import com.example.hexagonalarchitecture.domain.Account;
+import com.example.hexagonalarchitecture.infrastructure.exception.ApiException;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 /*
     순수한 비지니스 로직만 작성한다
-     - input validation 은 command 에서 처리한다
-     - input port 상속
-     - output port 주입
  */
 @Service
 @RequiredArgsConstructor
@@ -37,11 +37,9 @@ public class AccountService implements DepositUseCase, WithDrawUseCase, AccountS
 
     @Override
     public AccountDTO createAccount(AccountCreateCommand command) {
-        if(!command.validateSuccess()){
-            return AccountDTO.ofFailed("비밀번호와 비밀번호 확인이 올바르지 않습니다");
-        }
+        command.validate();
         if(!loadUserPort.existUser(command.getUserIndex())){
-            return AccountDTO.ofFailed("존재하지 않는 사용자 정보 입니다");
+            throw new ApiException(USER_INFO_NOT_FOUND);
         }
         String accountNum = generateAccountNum(command.getUserIndex());
         createAccountPort.create(Account.builder()
@@ -55,44 +53,32 @@ public class AccountService implements DepositUseCase, WithDrawUseCase, AccountS
 
     @Override
     public AccountDTO getAccount(AccountSearchCommand command) {
-        Account account = getAccount(command.getAccountNum(), command.getAccountPassword());
-        if(ObjectUtils.isEmpty(account)) {
-            return AccountDTO.ofFailed("계좌정보가 올바르지 않습니다");
-        }
+        command.validate();
+        Account account =
+            loadAccountPort.getAccount(command.getAccountNum(), command.getAccountPassword());
         return AccountDTO.ofSuccess("조회된 금액 : " + account.getMoney());
     }
 
     @Override
     public AccountDTO withDraw(WithDrawCommand command) {
-        Account account = getAccount(command.getAccountNum(), command.getAccountPassword());
-        if(ObjectUtils.isEmpty(account)) {
-            return AccountDTO.ofFailed("계좌정보가 올바르지 않습니다");
-        }
+        command.validate();
+        Account account =
+            loadAccountPort.getAccount(command.getAccountNum(), command.getAccountPassword());
         if(account.withdraw(command.getMoney())) {
             updateAccountPort.update(account);
             return AccountDTO.ofSuccess("출금이 완료 되었습니다");
-        } else {
-            return AccountDTO.ofFailed("잔액이 부족합니다");
         }
+        throw new ApiException(INSUFFICIENT_BALANCE);
     }
 
     @Override
     public AccountDTO deposit(DepositCommand command) {
-        Account account = getAccount(command.getAccountNum(), command.getAccountPassword());
-        if(ObjectUtils.isEmpty(account)) {
-            return AccountDTO.ofFailed("계좌정보가 올바르지 않습니다");
-        }
+        command.validate();
+        Account account =
+            loadAccountPort.getAccount(command.getAccountNum(), command.getAccountPassword());
         account.deposit(command.getMoney());
         updateAccountPort.update(account);
         return AccountDTO.ofSuccess("입금이 완료 되었습니다");
-    }
-
-    private Account getAccount (int accountNum, int accountPassword) {
-        try {
-            return loadAccountPort.getAccount(accountNum, accountPassword);
-        } catch (RuntimeException e) {
-            return null;
-        }
     }
 
     private String generateAccountNum(long userIndex) {

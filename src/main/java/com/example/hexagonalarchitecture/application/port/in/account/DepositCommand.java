@@ -1,5 +1,10 @@
 package com.example.hexagonalarchitecture.application.port.in.account;
 
+import static com.example.hexagonalarchitecture.infrastructure.exception.ApiErrorCode.ACCOUNT_NUMBER_IS_NULL;
+import static com.example.hexagonalarchitecture.infrastructure.exception.ApiErrorCode.ACCOUNT_PASSWORD_IS_NULL;
+import static com.example.hexagonalarchitecture.infrastructure.exception.ApiErrorCode.INVALID_MONEY;
+
+import com.example.hexagonalarchitecture.infrastructure.exception.ApiException;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +18,22 @@ import lombok.Setter;
 @Setter
 public class DepositCommand {
 
-    @NotNull // 유효성 검증
+    @NotNull
     private int accountNum;
     @NotNull
     private int accountPassword;
     @NotNull
     private long money;
+
+    public void validate() {
+        if(accountNum == 0) {
+            throw new ApiException(ACCOUNT_NUMBER_IS_NULL);
+        }
+        if(accountPassword == 0) {
+            throw new ApiException(ACCOUNT_PASSWORD_IS_NULL);
+        }
+        if(money <= 0) {
+            throw new ApiException(INVALID_MONEY);
+        }
+    }
 }

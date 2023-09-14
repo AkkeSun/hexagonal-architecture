@@ -15,11 +15,4 @@ public class AccountDTO {
             .message(message)
             .build();
     }
-
-    public static AccountDTO ofFailed(String message){
-        return AccountDTO.builder()
-            .status("N")
-            .message(message)
-            .build();
-    }
 }
