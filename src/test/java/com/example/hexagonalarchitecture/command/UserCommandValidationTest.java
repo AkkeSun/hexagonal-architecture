@@ -1,6 +1,8 @@
-package com.example.hexagonalarchitecture.user;
+package com.example.hexagonalarchitecture.command;
 
 import com.example.hexagonalarchitecture.application.port.in.user.UserCreateCommand;
+import com.example.hexagonalarchitecture.infrastructure.exception.ApiErrorCode;
+import com.example.hexagonalarchitecture.infrastructure.exception.ApiException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,11 +15,13 @@ public class UserCommandValidationTest {
         // given
         UserCreateCommand command = new UserCreateCommand();
 
-        // when
-        String validateResult = command.validate();
-
-        // then
-        Assertions.assertEquals(validateResult, "이름이 비어있습니다");
+        try {
+            // when
+            command.validate();
+        } catch (ApiException e) {
+            // then
+            Assertions.assertEquals(e.getApiErrorCode(), ApiErrorCode.USERNAME_IS_NULL);
+        }
     }
 
     @Test
@@ -27,11 +31,13 @@ public class UserCommandValidationTest {
         UserCreateCommand command = new UserCreateCommand();
         command.setUserName("od");
 
-        // when
-        String validateResult = command.validate();
-
-        // then
-        Assertions.assertEquals(validateResult, "주민등록번호가 비어있습니다");
+        try {
+            // when
+            command.validate();
+        } catch (ApiException e) {
+            // then
+            Assertions.assertEquals(e.getApiErrorCode(), ApiErrorCode.JUMIN_IS_NULL);
+        }
     }
 
     @Test
@@ -42,11 +48,13 @@ public class UserCommandValidationTest {
         command.setUserName("od");
         command.setJumin("1234121231231");
 
-        // when
-        String validateResult = command.validate();
-
-        // then
-        Assertions.assertEquals(validateResult, "전화번호가 비어있습니다");
+        try {
+            // when
+            command.validate();
+        } catch (ApiException e) {
+            // then
+            Assertions.assertEquals(e.getApiErrorCode(), ApiErrorCode.PHONE_NUMBER_IS_NULL);
+        }
     }
 
     @Test
@@ -58,11 +66,13 @@ public class UserCommandValidationTest {
         command.setJumin("129321-12123");
         command.setPhoneNumber("123123");
 
-        // when
-        String validateResult = command.validate();
-
-        // then
-        Assertions.assertEquals(validateResult, "주민등록번호가 올바르지 않습니다");
+        try {
+            // when
+            command.validate();
+        } catch (ApiException e) {
+            // then
+            Assertions.assertEquals(e.getApiErrorCode(), ApiErrorCode.INVALID_JUMIN);
+        }
     }
 
     @Test
@@ -74,11 +84,13 @@ public class UserCommandValidationTest {
         command.setJumin("910402-1234543");
         command.setPhoneNumber("121");
 
-        // when
-        String validateResult = command.validate();
-
-        // then
-        Assertions.assertEquals(validateResult, "전화번호가 올바르지 않습니다");
+        try {
+            // when
+            command.validate();
+        } catch (ApiException e) {
+            // then
+            Assertions.assertEquals(e.getApiErrorCode(), ApiErrorCode.INVALID_PHONE_NUMBER);
+        }
     }
 
     @Test
@@ -89,11 +101,16 @@ public class UserCommandValidationTest {
         command.setUserName("od");
         command.setJumin("910402-1234543");
         command.setPhoneNumber("010-1234-1234");
+        ApiErrorCode apiErrorCode = null;
 
         // when
-        String validateResult = command.validate();
+        try {
+            command.validate();
+        } catch (ApiException e) {
+            apiErrorCode = e.getApiErrorCode();
+        }
 
         // then
-        Assertions.assertEquals(validateResult, "");
+        Assertions.assertNull(apiErrorCode);
     }
 }
