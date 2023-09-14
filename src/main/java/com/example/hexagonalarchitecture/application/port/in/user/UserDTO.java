@@ -13,11 +13,4 @@ public class UserDTO {
             .message(message)
             .build();
     }
-
-    public static UserDTO ofFailed(String message){
-        return UserDTO.builder()
-            .status("N")
-            .message(message)
-            .build();
-    }
 }

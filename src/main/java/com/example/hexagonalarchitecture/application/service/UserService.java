@@ -18,11 +18,7 @@ public class UserService implements UserCreateUseCase {
     private final CreateUserPort createUserPort;
     @Override
     public UserDTO create(UserCreateCommand command) {
-        String validateResult = command.validate();
-        if (StringUtils.hasText(validateResult)){
-            log.error("[UserCreateUseCase] validation failed - " + validateResult);
-            return UserDTO.ofFailed(validateResult);
-        }
+        command.validate();
         createUserPort.create(User.builder()
             .userName(command.getUserName())
             .phoneNumber(command.getPhoneNumber())
