@@ -7,6 +7,7 @@ import static com.example.hexagonalarchitecture.infrastructure.exception.ApiErro
 import com.example.hexagonalarchitecture.infrastructure.exception.ApiException;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.StringUtils;
 
 /*
     input model
@@ -17,12 +18,12 @@ import lombok.Setter;
 @Setter
 public class WithDrawCommand {
 
-    private int accountNum;
+    private String accountNum;
     private int accountPassword;
     private long money;
 
     public void validate() {
-        if(accountNum == 0) {
+        if(!StringUtils.hasText(accountNum)) {
             throw new ApiException(ACCOUNT_NUMBER_IS_NULL);
         }
         if(accountPassword == 0) {

@@ -8,6 +8,7 @@ import com.example.hexagonalarchitecture.infrastructure.exception.ApiException;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.StringUtils;
 
 /*
     input model
@@ -18,15 +19,12 @@ import lombok.Setter;
 @Setter
 public class DepositCommand {
 
-    @NotNull
-    private int accountNum;
-    @NotNull
+    private String accountNum;
     private int accountPassword;
-    @NotNull
     private long money;
 
     public void validate() {
-        if(accountNum == 0) {
+        if(!StringUtils.hasText(accountNum)) {
             throw new ApiException(ACCOUNT_NUMBER_IS_NULL);
         }
         if(accountPassword == 0) {

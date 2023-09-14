@@ -25,8 +25,8 @@ public class AccountPersistenceAdapter implements CreateAccountPort, ReadAccount
     }
 
     @Override
-    public Account getAccount(int accountNum, int accountPassword) {
-        String encAccountNum = AesUtils.encrypt(String.valueOf(accountNum));
+    public Account getAccount(String accountNum, int accountPassword) {
+        String encAccountNum = AesUtils.encrypt(accountNum);
         String encAccountPassword = AesUtils.encrypt(String.valueOf(accountNum));
         AccountEntity entity = repository.findByAccountNumAndAccountPassword(encAccountNum, encAccountPassword)
             .orElseThrow(() -> new ApiException(INVALID_ACCOUNT_INFO));
