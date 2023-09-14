@@ -7,7 +7,6 @@ import static com.example.hexagonalarchitecture.infrastructure.exception.ApiErro
 import static com.example.hexagonalarchitecture.infrastructure.exception.ApiErrorCode.USERNAME_IS_NULL;
 
 import com.example.hexagonalarchitecture.infrastructure.exception.ApiException;
-import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.StringUtils;
