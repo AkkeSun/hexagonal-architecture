@@ -1,17 +1,25 @@
 package com.example.hexagonalarchitecture.adapter.out.persistence.account;
 
 import com.example.hexagonalarchitecture.domain.Account;
-import com.example.hexagonalarchitecture.domain.User;
-import com.example.hexagonalarchitecture.util.AesUtils;
+import com.example.hexagonalarchitecture.infrastructure.util.AesUtils;
 
 public class AccountMapper {
 
     public Account toEntity (AccountEntity entity){
         return Account.builder()
-            .accountNum(Integer.parseInt(AesUtils.decrypt(entity.getAccountNum())))
+            .accountNum(AesUtils.decrypt(entity.getAccountNum()))
             .accountPassword(Integer.parseInt(AesUtils.decrypt(entity.getAccountPassword())))
             .money(entity.getMoney())
-            .user(User.builder().index(entity.getUser().getIndex()).build())
+            .userIndex(entity.getUserIndex())
+            .build();
+    }
+
+    public AccountEntity toDomain (Account domain){
+        return AccountEntity.builder()
+            .accountNum(AesUtils.encrypt(domain.getAccountNum()))
+            .accountPassword(AesUtils.encrypt(String.valueOf(domain.getAccountPassword())))
+            .money(domain.getMoney())
+            .userIndex(domain.getUserIndex())
             .build();
     }
 }

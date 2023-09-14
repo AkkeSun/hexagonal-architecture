@@ -1,7 +1,7 @@
 package com.example.hexagonalarchitecture.adapter.out.persistence.user;
 
 import com.example.hexagonalarchitecture.domain.User;
-import com.example.hexagonalarchitecture.util.AesUtils;
+import com.example.hexagonalarchitecture.infrastructure.util.AesUtils;
 
 public class UserMapper {
 
@@ -15,7 +15,6 @@ public class UserMapper {
 
     public UserEntity toDomain (User domain) {
         return UserEntity.builder()
-            .index(domain.getIndex())
             .userName(AesUtils.encrypt(domain.getUserName()))
             .jumin(AesUtils.encrypt(domain.getJumin()))
             .phoneNumber(AesUtils.encrypt(domain.getPhoneNumber()))
