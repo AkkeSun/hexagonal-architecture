@@ -12,7 +12,7 @@ public class JasyptConfig {
     public static final String ENCRYPT_KEY = "testKey";
     public static final String ENCRYPT_ALGORITHM = "PBEWithMD5AndDES";
 
-    @Bean
+    @Bean("jasyptStringEncryptor")
     public StringEncryptor stringEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
