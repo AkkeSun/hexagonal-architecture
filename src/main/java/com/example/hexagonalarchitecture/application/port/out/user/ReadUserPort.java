@@ -1,4 +1,4 @@
-package com.example.hexagonalarchitecture.application.port.out;
+package com.example.hexagonalarchitecture.application.port.out.user;
 
 import com.example.hexagonalarchitecture.domain.User;
 

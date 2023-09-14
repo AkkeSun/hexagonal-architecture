@@ -1,7 +1,7 @@
 package com.example.hexagonalarchitecture.adapter.out.persistence.user;
 
-import com.example.hexagonalarchitecture.application.port.out.ReadUserPort;
-import com.example.hexagonalarchitecture.application.port.out.CreateUserPort;
+import com.example.hexagonalarchitecture.application.port.out.user.ReadUserPort;
+import com.example.hexagonalarchitecture.application.port.out.user.CreateUserPort;
 import com.example.hexagonalarchitecture.domain.User;
 import lombok.RequiredArgsConstructor;
 

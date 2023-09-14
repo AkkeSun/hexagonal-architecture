@@ -1,8 +1,8 @@
 package com.example.hexagonalarchitecture.adapter.out.persistence.account;
 
-import com.example.hexagonalarchitecture.application.port.out.CreateAccountPort;
-import com.example.hexagonalarchitecture.application.port.out.ReadAccountPort;
-import com.example.hexagonalarchitecture.application.port.out.UpdateAccountPort;
+import com.example.hexagonalarchitecture.application.port.out.account.CreateAccountPort;
+import com.example.hexagonalarchitecture.application.port.out.account.ReadAccountPort;
+import com.example.hexagonalarchitecture.application.port.out.account.UpdateAccountPort;
 import com.example.hexagonalarchitecture.domain.Account;
 import com.example.hexagonalarchitecture.infrastructure.util.AesUtils;
 import lombok.RequiredArgsConstructor;
