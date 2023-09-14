@@ -1,4 +1,4 @@
-package com.example.hexagonalarchitecture.util;
+package com.example.hexagonalarchitecture.infrastructure.util;
 
 import java.util.Base64;
 import javax.crypto.Cipher;
