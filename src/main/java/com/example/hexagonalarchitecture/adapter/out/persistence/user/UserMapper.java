@@ -2,7 +2,9 @@ package com.example.hexagonalarchitecture.adapter.out.persistence.user;
 
 import com.example.hexagonalarchitecture.domain.User;
 import com.example.hexagonalarchitecture.infrastructure.util.AesUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
 
     public User toEntity (UserEntity entity) {

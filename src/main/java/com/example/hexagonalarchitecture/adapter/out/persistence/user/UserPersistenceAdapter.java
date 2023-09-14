@@ -4,7 +4,9 @@ import com.example.hexagonalarchitecture.application.port.out.user.ReadUserPort;
 import com.example.hexagonalarchitecture.application.port.out.user.CreateUserPort;
 import com.example.hexagonalarchitecture.domain.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
 class UserPersistenceAdapter implements ReadUserPort, CreateUserPort {
 

@@ -2,7 +2,9 @@ package com.example.hexagonalarchitecture.adapter.out.persistence.account;
 
 import com.example.hexagonalarchitecture.domain.Account;
 import com.example.hexagonalarchitecture.infrastructure.util.AesUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AccountMapper {
 
     public Account toEntity (AccountEntity entity){
