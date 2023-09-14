@@ -7,4 +7,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 interface AccountRepository extends JpaRepository<AccountEntity, Long> {
     Optional <AccountEntity> findByAccountNumAndAccountPassword(String accountNum, String accountPassword);
+    boolean existsAccountEntityByAccountNum(String accountNum);
 }

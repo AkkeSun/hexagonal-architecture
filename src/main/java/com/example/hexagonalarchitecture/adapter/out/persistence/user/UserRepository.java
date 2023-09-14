@@ -6,6 +6,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    @Override
     boolean existsById(Long id);
 }
