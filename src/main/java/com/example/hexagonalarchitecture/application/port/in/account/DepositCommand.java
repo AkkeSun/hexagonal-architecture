@@ -5,7 +5,6 @@ import static com.example.hexagonalarchitecture.infrastructure.exception.ApiErro
 import static com.example.hexagonalarchitecture.infrastructure.exception.ApiErrorCode.INVALID_MONEY;
 
 import com.example.hexagonalarchitecture.infrastructure.exception.ApiException;
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.StringUtils;
