@@ -1,4 +1,4 @@
-package com.example.hexagonalarchitecture.adapter.out.persistence;
+package com.example.hexagonalarchitecture.adapter.out.persistence.jpa;
 
 import static com.example.hexagonalarchitecture.global.exception.ErrorCode.ACCOUNT_NOF_FOUND;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AccountPersistenceAdapter implements AccountReadPort, AccountCreatePort {
+class AccountPersistenceAdapter implements AccountReadPort, AccountCreatePort {
 
     private final AccountRepository repository;
 

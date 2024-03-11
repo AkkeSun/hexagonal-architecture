@@ -1,4 +1,4 @@
-package com.example.hexagonalarchitecture.adapter.out.persistence;
+package com.example.hexagonalarchitecture.adapter.out.persistence.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

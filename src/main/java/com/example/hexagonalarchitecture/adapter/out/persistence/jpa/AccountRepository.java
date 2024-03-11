@@ -1,4 +1,4 @@
-package com.example.hexagonalarchitecture.adapter.out.persistence;
+package com.example.hexagonalarchitecture.adapter.out.persistence.jpa;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
