@@ -1,4 +1,4 @@
-package com.example.hexagonalarchitecture.adapter.in.deposit;
+package com.example.hexagonalarchitecture.adapter.in.controller.deposit;
 
 
 import com.example.hexagonalarchitecture.application.port.in.deposit.DepositCommand;

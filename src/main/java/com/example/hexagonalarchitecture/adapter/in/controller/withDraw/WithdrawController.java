@@ -1,4 +1,4 @@
-package com.example.hexagonalarchitecture.adapter.in.withDraw;
+package com.example.hexagonalarchitecture.adapter.in.controller.withDraw;
 
 import com.example.hexagonalarchitecture.application.port.in.withdraw.WithdrawUseCase;
 import com.example.hexagonalarchitecture.application.service.withdraw.WithdrawServiceResponse;

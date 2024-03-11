@@ -1,12 +1,11 @@
-package com.example.hexagonalarchitecture.adapter.in.withDraw;
+package com.example.hexagonalarchitecture.adapter.in.controller.balanceCheck;
 
-
-import com.example.hexagonalarchitecture.application.port.in.withdraw.WithdrawCommand;
+import com.example.hexagonalarchitecture.application.port.in.balanceCheck.BalanceCheckCommand;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-class WithdrawRequest {
+class BalanceCheckRequest {
 
     @NotNull(message = "계좌번호는 필수값 입니다")
     private String accountNum;
@@ -14,15 +13,10 @@ class WithdrawRequest {
     @NotNull(message = "비밀번호는 필수값 입니다")
     private String accountPassword;
 
-    @NotNull(message = "출금액은 필수값 입니다")
-    private Long money;
-
-    WithdrawCommand toCommand() {
-        return WithdrawCommand.builder()
+    public BalanceCheckCommand toCommand() {
+        return BalanceCheckCommand.builder()
             .accountNum(this.accountNum)
             .accountPassword(this.accountPassword)
-            .money(this.money)
             .build();
     }
-
 }

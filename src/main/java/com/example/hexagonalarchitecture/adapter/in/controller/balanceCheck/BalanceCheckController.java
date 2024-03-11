@@ -1,4 +1,4 @@
-package com.example.hexagonalarchitecture.adapter.in.balanceCheck;
+package com.example.hexagonalarchitecture.adapter.in.controller.balanceCheck;
 
 import com.example.hexagonalarchitecture.application.port.in.balanceCheck.BalanceCheckUseCase;
 import com.example.hexagonalarchitecture.application.service.balanceCheck.BalanceCheckServiceResponse;
