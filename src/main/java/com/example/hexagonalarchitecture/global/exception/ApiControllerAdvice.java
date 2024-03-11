@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice
-public class ApiControllerAdvice {
+class ApiControllerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
-    public ApiResponse<Object> bindException(BindException e) {
+    ApiResponse<Object> bindException(BindException e) {
         return ApiResponse.of(
             HttpStatus.BAD_REQUEST,
             e.getBindingResult().getAllErrors().get(0).getDefaultMessage(),
@@ -25,7 +25,7 @@ public class ApiControllerAdvice {
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(IllegalArgumentException.class)
-    public ApiResponse<Object> bindException(IllegalArgumentException e) {
+    ApiResponse<Object> bindException(IllegalArgumentException e) {
         return ApiResponse.of(
             HttpStatus.FORBIDDEN,
             e.getMessage(),
@@ -35,7 +35,7 @@ public class ApiControllerAdvice {
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(CustomException.class)
-    public ApiResponse<Object> handleCustomBusinessException(CustomException ex) {
+    ApiResponse<Object> handleCustomBusinessException(CustomException ex) {
         log.info("CustomException : " + ex.getErrorCode().getMessage());
         return ApiResponse.of(
             ex.getErrorCode().getCode(),
@@ -48,7 +48,7 @@ public class ApiControllerAdvice {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ApiResponse<Object> handleInternalError(Exception e) throws Exception {
+    ApiResponse<Object> handleInternalError(Exception e) throws Exception {
         log.error(e.getMessage());
         throw new Exception(e);
     }
