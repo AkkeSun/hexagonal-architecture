@@ -34,8 +34,8 @@ class ApiControllerAdvice {
     }
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(CustomException.class)
-    ApiResponse<Object> handleCustomBusinessException(CustomException ex) {
+    @ExceptionHandler(CustomBusinessException.class)
+    ApiResponse<Object> handleCustomBusinessException(CustomBusinessException ex) {
         log.info("CustomException : " + ex.getErrorCode().getMessage());
         return ApiResponse.of(
             ex.getErrorCode().getCode(),

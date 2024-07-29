@@ -7,7 +7,6 @@ import com.example.hexagonalarchitecture.application.port.in.withdraw.WithdrawUs
 import com.example.hexagonalarchitecture.application.port.out.AccountCreatePort;
 import com.example.hexagonalarchitecture.application.port.out.AccountReadPort;
 import com.example.hexagonalarchitecture.domain.Account;
-import com.example.hexagonalarchitecture.global.exception.CustomException;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -2,12 +2,12 @@ package com.example.hexagonalarchitecture.global.exception;
 
 import lombok.Getter;
 
-public class CustomException extends RuntimeException {
+@Getter
+public class CustomBusinessException extends RuntimeException {
 
-    @Getter
     private final ErrorCode errorCode;
 
-    public CustomException(ErrorCode errorCode) {
+    public CustomBusinessException(ErrorCode errorCode) {
         super(errorCode.getMessage());
         this.errorCode = errorCode;
     }

@@ -5,7 +5,8 @@ import static com.example.hexagonalarchitecture.global.exception.ErrorCode.ACCOU
 import com.example.hexagonalarchitecture.application.port.out.AccountCreatePort;
 import com.example.hexagonalarchitecture.application.port.out.AccountReadPort;
 import com.example.hexagonalarchitecture.domain.Account;
-import com.example.hexagonalarchitecture.global.exception.CustomException;
+import com.example.hexagonalarchitecture.global.exception.CustomBusinessException;
+import com.example.hexagonalarchitecture.global.exception.CustomNotFoundException;
 import com.example.hexagonalarchitecture.global.util.AesUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ class AccountPersistenceAdapter implements AccountReadPort, AccountCreatePort {
         String encAccountNum = AesUtils.encrypt(accountNum);
         String encAccountPassword = AesUtils.encrypt(accountPassword);
         AccountEntity entity = repository.findByAccountNumAndAccountPassword(encAccountNum, encAccountPassword)
-            .orElseThrow(() -> new CustomException(ACCOUNT_NOF_FOUND));
+            .orElseThrow(() -> new CustomNotFoundException(ACCOUNT_NOF_FOUND));
         return toAccountDomain(entity);
     }
 

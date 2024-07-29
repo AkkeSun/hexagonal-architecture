@@ -12,11 +12,11 @@ class BalanceCheckResponse {
     private long money;
 
     @Builder
-    public BalanceCheckResponse(long money) {
+    BalanceCheckResponse(long money) {
         this.money = money;
     }
 
-    public BalanceCheckResponse of(BalanceCheckServiceResponse response) {
+    BalanceCheckResponse of(BalanceCheckServiceResponse response) {
         return BalanceCheckResponse.builder()
             .money(response.getMoney())
             .build();
